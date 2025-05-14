@@ -1,36 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/05/14 16:53:07 by erico-ke         ###   ########.fr       */
+/*   Created: 2025/05/14 16:45:32 by erico-ke          #+#    #+#             */
+/*   Updated: 2025/05/14 16:45:48 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
-# include <string.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <sys/time.h>
-# include <pthread.h>
-
-typedef	struct table
-{
-	int			philo_amount;
-	long long	death_time;
-	long long	eat_time;
-	long long	sleep_time;
-	int			nbr_eat;
-} t_table;
+#include "philo.h"
 
 
-/* Error management and memory free */
-int		prnt_err(char *str);
-void	free_splt(char **split);
-
-#endif
