@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/05/14 16:53:07 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/05/15 13:00:25 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,9 @@ typedef	struct table
 /* Error management and memory free */
 int		prnt_err(char *str);
 void	free_splt(char **split);
+
+/* Utils */
+int	ft_atoi(const char *nptr);
+int	ft_isdigit(int c);
 
 #endif
