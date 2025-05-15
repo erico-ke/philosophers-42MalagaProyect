@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:16:39 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/05/15 13:17:23 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/05/15 14:02:35 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,16 @@ int	init_table(char **argv, t_table *tab)
 
 int	main(int argc, char **argv)
 {
-	t_table	*table;
+	t_table	*tab;
 
 	if (argc < 5 || argc > 6)
 		return (prnt_err("indvalid number of arguments"));
-	table	= malloc(sizeof(t_table));
-	if (!table)
+	tab = malloc(sizeof(t_table));
+	if (!tab)
 		return (prnt_err("malloc failed"));
-	if (init_table(argv, table) == EXIT_FAILURE)
-		return (free(table), prnt_err("invalid argument, they must be numbers"));
-	free(table);
+	if (init_table(argv, tab) == EXIT_FAILURE)
+		return (free(tab), prnt_err("invalid argument, they must be numbers"));
+	
+	free(tab);
 	return (EXIT_SUCCESS);
 }
