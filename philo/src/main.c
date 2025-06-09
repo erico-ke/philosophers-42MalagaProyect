@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:16:39 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/06/09 13:06:53 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/06/09 14:22:52 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,15 @@
 int	check_values(t_table *tab)
 {
 	if (tab->philo_amount <= 0)
-		return (prnt_err(""));
+		return (prnt_err("Philosopher amount must be bigger than 0"));
 	if (tab->death_time < 0)
-		return (prnt_err(""));
+		return (prnt_err("Death time can't be negative"));
 	if (tab->eat_time <= 0)
-		return (prnt_err(""));
+		return (prnt_err("Time to eat must be bigger than 0"));
 	if (tab->sleep_time <= 0)
-		return (prnt_err(""));
-	if (tab->nbr_eat /* crear condicion para que no sea ni menor ni igual a 0 pero
-		 teniendo en cuenta que estamos seteando el numero a -1 cuando no hay 5to input, entonces 
-		 hay que ser conscientes de que si ingresan un -1 nos jodimos*/)
-			return (prnt_err(""));
+		return (prnt_err("Time to sleep must be bigger than 0"));
+	if (tab->nbr_eat < 0)
+			return (prnt_err("Times to eat must be bigger than 0"));
 	return (EXIT_SUCCESS);
 }
 
@@ -50,8 +48,6 @@ int	init_table(char **argv, t_table *tab)
 	tab->sleep_time = ft_atoi(argv[4]);
 	if (argv[5])
 		tab->nbr_eat = ft_atoi(argv[5]);
-	else
-		tab->nbr_eat = -1;
 	return (EXIT_SUCCESS);
 }
 
@@ -65,8 +61,9 @@ int	main(int argc, char **argv)
 	if (!tab)
 		return (prnt_err("malloc failed"));
 	if (init_table(argv, tab) == EXIT_FAILURE)
-		return (free(tab), prnt_err("invalid argument, they must be numbers"));
-	
+		return (free(tab), prnt_err("invalid argument, they must be positive numbers"));
+	if (check_values(tab) == EXIT_FAILURE)
+		return (free(tab), EXIT_FAILURE);
 	free(tab);
 	return (EXIT_SUCCESS);
 }
