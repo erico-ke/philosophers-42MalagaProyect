@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/06/09 14:35:28 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/06/09 14:40:31 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef	struct table
 
 typedef struct philo
 {
-	int	has_eaten;
 	int	is_eating;
 	int	last_time_eated;
 	int	is_sleeping;
