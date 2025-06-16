@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/06/09 14:40:31 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/06/16 12:29:43 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 # include <sys/time.h>
 # include <pthread.h>
 
+typedef struct philo
+{
+	int	is_eating;
+	int	last_time_eated;
+	int	is_sleeping;
+	int	is_alive;
+} t_philo;
+
 typedef	struct table
 {
 	int			philo_amount;
@@ -28,14 +36,6 @@ typedef	struct table
 	int			nbr_eat;
 	t_philo		**philosophers;
 } t_table;
-
-typedef struct philo
-{
-	int	is_eating;
-	int	last_time_eated;
-	int	is_sleeping;
-	int	is_alive;
-} t_philo;
 
 
 /* Error management and memory free */
