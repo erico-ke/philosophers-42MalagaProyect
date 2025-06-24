@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:16:39 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/06/09 14:22:52 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/06/24 18:00:36 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	main(int argc, char **argv)
 		return (free(tab), prnt_err("invalid argument, they must be positive numbers"));
 	if (check_values(tab) == EXIT_FAILURE)
 		return (free(tab), EXIT_FAILURE);
+	if (tab->philo_amount == 1)
+		philo_routine(tab);
 	free(tab);
 	return (EXIT_SUCCESS);
 }

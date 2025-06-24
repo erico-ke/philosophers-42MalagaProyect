@@ -49,6 +49,6 @@ fclean:
 	@echo "$(GREEN)Full cleaning success.$(DEF_COLOR)"
 re: fclean all
 
-DEF_COLOR = \033[0;39m
-GREEN = \033[0;92m
-YELLOW = \033[0;93m
+DEF_COLOR = \033[1;39m
+GREEN = \033[1;92m
+YELLOW = \033[1;93m

@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/06/16 12:29:43 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/06/24 17:59:41 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef	struct table
 	long long	eat_time;
 	long long	sleep_time;
 	int			nbr_eat;
-	t_philo		**philosophers;
+	t_philo		*philosophers;
 } t_table;
 
 
@@ -45,5 +45,8 @@ void	free_splt(char **split);
 /* Utils */
 int	ft_atoi(const char *nptr);
 int	ft_isdigit(int c);
+
+/* Philosophers */
+void	philo_routine(t_table *tab);
 
 #endif
