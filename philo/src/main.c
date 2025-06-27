@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:16:39 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/06/24 18:00:36 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:14:51 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,10 @@ int	main(int argc, char **argv)
 		return (free(tab), EXIT_FAILURE);
 	if (tab->philo_amount == 1)
 		philo_routine(tab);
+	else
+	{
+		
+	}
 	free(tab);
 	return (EXIT_SUCCESS);
 }
