@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:16:39 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/06/27 15:14:51 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:30:59 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,9 @@ int	main(int argc, char **argv)
 		philo_routine(tab);
 	else
 	{
-		
+		//inicializar mutex, luego los threads, los threads necesitan la rutina
+		//de los philos, crearla.
+		//checkear que no se bloqueen, hacer la logica de los mutex correctamente.
 	}
 	free(tab);
 	return (EXIT_SUCCESS);
