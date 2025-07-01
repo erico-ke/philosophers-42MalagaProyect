@@ -6,13 +6,13 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:16:39 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/07/01 12:16:33 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/07/01 14:54:07 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_values(t_table *tab)
+int	check_values(t_table *tab, char **argv)
 {
 	if (tab->philo_amount <= 0)
 		return (prnt_err("Philosopher amount must be bigger than 0"));
@@ -22,8 +22,10 @@ int	check_values(t_table *tab)
 		return (prnt_err("Time to eat must be bigger than 0"));
 	if (tab->sleep_time <= 0)
 		return (prnt_err("Time to sleep must be bigger than 0"));
-	if (tab->nbr_eat < 0)
-			return (prnt_err("Times to eat must be bigger than 0"));
+	if (!argv[5])
+		return (EXIT_SUCCESS);
+	else if (tab->nbr_eat < 0)
+		return (prnt_err("Times to eat must be bigger than 0"));
 	return (EXIT_SUCCESS);
 }
 
@@ -62,7 +64,7 @@ int	main(int argc, char **argv)
 		return (prnt_err("malloc failed"));
 	if (init_table(argv, tab) == EXIT_FAILURE)
 		return (free(tab), prnt_err("invalid argument, they must be positive numbers"));
-	if (check_values(tab) == EXIT_FAILURE)
+	if (check_values(tab, argv) == EXIT_FAILURE)
 		return (free(tab), EXIT_FAILURE);
 	if (tab->philo_amount == 1)
 		philo_routine(tab);
