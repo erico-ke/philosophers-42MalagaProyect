@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/07/01 11:44:43 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/07/01 12:33:44 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,24 @@ int	philo_pthread_init(t_table *tab, int i)
 	}
 	tab->philosophers[0]->r_fork = tab->philosophers[i - 1]->l_fork;
 	return (EXIT_SUCCESS);
+}
+
+static void	*control(t_table *tab)
+{
+	
+}
+
+static void	*routine(t_table *tab, int i)
+{
+	
+}
+
+void	philos_pthread_create(t_table *tab, int i)
+{
+	pthread_create(&tab->thread, NULL, control(tab), NULL);
+	while (tab->philosophers[i])
+	{
+		pthread_create(&tab->philosophers[i]->thread, NULL, routine(tab, i), NULL);
+		i++;
+	}
 }

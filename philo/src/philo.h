@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/07/01 11:40:10 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/07/01 12:33:10 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct philo
 	int				is_alive;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
+	pthread_t		thread;
 } t_philo;
 
 typedef	struct table
@@ -37,6 +38,7 @@ typedef	struct table
 	long long	eat_time;
 	long long	sleep_time;
 	int			nbr_eat;
+	pthread_t	thread;
 	t_philo		**philosophers;
 } t_table;
 
@@ -53,5 +55,6 @@ int	ft_isdigit(int c);
 /* Philosophers */
 void	philo_routine(t_table *tab);
 int		philo_pthread_init(t_table *tab, int i);
+void	philos_pthread_create(t_table *tab, int i);
 
 #endif
