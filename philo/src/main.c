@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:16:39 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/07/01 14:54:07 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/07/01 15:38:07 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,13 @@ int	main(int argc, char **argv)
 		philo_routine(tab);
 	else
 	{
-		if (philo_pthread_init(tab, 0) == EXIT_FAILURE)
+		if (philo_pthread_init(tab, -1) == EXIT_FAILURE)
 			return(t_philo_free(tab, 0), EXIT_FAILURE);
 		else
-			philos_pthread_create(tab, 0);
+		{
+			philos_pthread_create(tab, -1);
+			philos_pthread_join(tab);
+		}
 	}
 	t_philo_free(tab, 0);
 	return (EXIT_SUCCESS);

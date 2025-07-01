@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/07/01 14:42:18 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/07/01 15:22:49 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ int	ft_isdigit(int c);
 void	philo_routine(t_table *tab);
 int		philo_pthread_init(t_table *tab, int i);
 void	philos_pthread_create(t_table *tab, int i);
+void	philos_pthread_join(t_table *tab);
 
 #endif
