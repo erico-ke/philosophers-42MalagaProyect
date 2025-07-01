@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/07/01 15:50:12 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/07/01 19:23:23 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,12 @@ int	philo_pthread_init(t_table *tab, int i)
 			return (EXIT_FAILURE);
 		if (pthread_mutex_init(tab->philosophers[i]->l_fork, NULL) == -1)
 			return (EXIT_FAILURE);
-		tab->philosophers[i]->id = i;
 		tab->philosophers[i]->is_eating = 0;
 		tab->philosophers[i]->last_time_eated = 0;
 		tab->philosophers[i]->is_sleeping = 0;
 		tab->philosophers[i]->is_alive = 0;	
 	}
-	i = -1;
-	while (++i < tab->philo_amount)
+	while (--i >= 0)
 	{
 		if (i == tab->philo_amount - 1)
 			tab->philosophers[i]->r_fork = tab->philosophers[0]->l_fork;
