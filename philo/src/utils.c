@@ -6,17 +6,17 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 16:45:32 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/05/15 13:00:16 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/07/04 12:54:31 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(const char *nptr)
+long	ft_atol(const char *nptr)
 {
-	int	i;
-	int	res;
-	int	neg;
+	int		i;
+	long	res;
+	int		neg;
 
 	i = 0;
 	res = 0;

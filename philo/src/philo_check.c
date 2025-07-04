@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/07/01 19:31:03 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:30:48 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	philo_pthread_init(t_table *tab, int i)
 			return (EXIT_FAILURE);
 		if (pthread_mutex_init(tab->philosophers[i]->l_fork, NULL) == -1)
 			return (EXIT_FAILURE);
+		tab->philosophers[i]->id = i;
 		tab->philosophers[i]->is_eating = 0;
 		tab->philosophers[i]->last_time_eated = 0;
 		tab->philosophers[i]->is_sleeping = 0;
@@ -49,28 +50,27 @@ int	philo_pthread_init(t_table *tab, int i)
 static void	*control(void *arg)
 {
 	t_table	*tab;
-	int		check;
 	int		i;
 
 	tab = (t_table *)arg;
 	while (1)
 	{
-		check = 1;
 		i = -1;
 		while (++i < tab->philo_amount)
 		{
+			printf("%d", tab->philosophers[i]->is_alive);
 			if (tab->philosophers[i]->is_alive == 1)
 			{
-				check = 0;
+				tab->death_flag = 1;
 				break ;
 			}
 		}
-		if (check == 0)
+		if (tab->death_flag == 1)
 			break ;
 	}
 	i = -1;
 	while (++i < tab->philo_amount)
-		pthread_detach(tab->philosophers[i]->thread); //esto no corta la rutina del filosofo pero a veces si???
+		tab->philosophers[i]->is_alive = 1;
 	return (NULL);
 }
 
@@ -79,9 +79,9 @@ static void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (1)
+	while (philo->is_alive != 1)
 	{
-		//Bucle de rutina del filosofo
+		
 	}
 	return (NULL);
 }
@@ -90,7 +90,10 @@ void	philos_pthread_create(t_table *tab, int i)
 {
 	pthread_create(&tab->thread, NULL, control, tab);
 	while (++i < tab->philo_amount)
+	{
+		tab->philosophers[i]->tab = tab;
 		pthread_create(&tab->philosophers[i]->thread, NULL, routine, tab->philosophers[i]);
+	}
 }
 
 void	philos_pthread_join(t_table *tab)
@@ -102,3 +105,4 @@ void	philos_pthread_join(t_table *tab)
 		pthread_join(tab->philosophers[i]->thread, NULL);
 	pthread_join(tab->thread, NULL);
 }
+

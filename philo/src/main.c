@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:16:39 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/07/01 15:38:07 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/07/04 13:58:32 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@ int	init_table(char **argv, t_table *tab)
 				return (EXIT_FAILURE);
 		}
 	}
-	tab->philo_amount = ft_atoi(argv[1]);//estos atoi en realidad deberian ser algo como atol pq los numeros vienen en milisegundos
-	tab->death_time = ft_atoi(argv[2]);
-	tab->eat_time = ft_atoi(argv[3]);
-	tab->sleep_time = ft_atoi(argv[4]);
+	tab->philo_amount = ft_atol(argv[1]);//estos atoi en realidad deberian ser algo como atol pq los numeros vienen en milisegundos
+	tab->death_time = ft_atol(argv[2]);
+	tab->eat_time = ft_atol(argv[3]);
+	tab->sleep_time = ft_atol(argv[4]);
 	if (argv[5])
-		tab->nbr_eat = ft_atoi(argv[5]);
+		tab->nbr_eat = ft_atol(argv[5]);
+	tab->death_flag = 0;
 	return (EXIT_SUCCESS);
 }
 
