@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/07/04 16:35:30 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/07/04 17:01:43 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@ typedef struct philo
 
 typedef	struct table
 {
-	int			death_flag;
-	int			philo_amount;
-	long long	death_time;
-	long long	eat_time;
-	long long	sleep_time;
-	int			nbr_eat;
-	pthread_t	thread;
-	t_philo		**philosophers;
+	int				death_flag;
+	int				philo_amount;
+	long long		death_time;
+	long long		eat_time;
+	long long		sleep_time;
+	int				nbr_eat;
+	pthread_t		thread;
+	pthread_mutex_t	*writer;
+	t_philo			**philosophers;
 } t_table;
 
 /* Error management and memory free */
