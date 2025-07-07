@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
+/*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/07/04 16:59:47 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/07/07 20:43:05 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	philo_routine(t_table *tab)
 {
 	usleep(tab->death_time * 1000);
-	printf("at %lld miliseconds philo 0 died.", tab->death_time);
+	printf("at %lld miliseconds philo 0 died.\n", tab->death_time);
 }
 
 int	philo_pthread_init(t_table *tab, int i)
@@ -58,7 +58,6 @@ static void	*control(void *arg)
 		i = -1;
 		while (++i < tab->philo_amount)
 		{
-			printf("%d", tab->philosophers[i]->is_alive);
 			if (tab->philosophers[i]->is_alive == 1)
 			{
 				tab->death_flag = 1;
@@ -79,15 +78,43 @@ static void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	philo->last_time_eated = get_time();
 	while (philo->is_alive != 1)
 	{
-		
+		if(philo->last_time_eated + philo->tab->death_time < get_time())
+		{
+			philo->is_alive = 1;
+			philo->tab->death_flag = 1;
+			print_mutex_use(philo->tab, "died");
+			return (NULL);
+		}
+		if (philo->is_eating == 0 && philo->is_sleeping == 0)
+		{
+			fork_mutex_use(philo);
+			philo->is_eating = 1;
+			philo->last_time_eated = get_time();
+			philo->is_eating = 0;
+			philo->is_sleeping = 1;
+			print_mutex_use(philo->tab, "is sleeping");
+			usleep(philo->tab->sleep_time * 1000);
+			philo->is_sleeping = 0;
+			print_mutex_use(philo->tab, "is thinking");
+		}
+		else if (philo->is_eating == 1)
+			continue ;
+		else if (philo->is_sleeping == 1)
+			continue ;
 	}
 	return (NULL);
 }
 
 void	philos_pthread_create(t_table *tab, int i)
 {
+	set_start_time(tab);
+	tab->writer = malloc(sizeof(pthread_mutex_t));
+	print_mutex_init(tab);
+	if (!tab->writer)
+		return ;
 	pthread_create(&tab->thread, NULL, control, tab);
 	while (++i < tab->philo_amount)
 	{
