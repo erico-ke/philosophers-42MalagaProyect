@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:56:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/07/07 20:37:07 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/07/17 19:14:45 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,22 @@ void	print_mutex_use(t_table *tab, char *msg)
 	pthread_mutex_lock(tab->writer);
 	if (tab->death_flag == 0)
 		printf("%lld %d %s\n", get_time(), tab->philosophers[0]->id, msg);
-	pthread_mutex_unlock(tab->writer);	
+	pthread_mutex_unlock(tab->writer);
 }
 
 void	fork_mutex_use(t_philo *philo)
 {
-	pthread_mutex_lock(philo->r_fork);
-	pthread_mutex_lock(philo->l_fork);
 	if (philo->tab->death_flag == 0)
 	{
-		print_mutex_use(philo->tab, "has taken a fork");
-		print_mutex_use(philo->tab, "has taken a fork");
+		pthread_mutex_lock(philo->r_fork);
+		print_mutex_use(philo->tab, "has taken the right fork");
+		pthread_mutex_lock(philo->l_fork);
+		print_mutex_use(philo->tab, "has taken the left fork");
 		print_mutex_use(philo->tab, "is eating");
-		usleep(philo->tab->eat_time * 1000);
 		philo->is_eating = 1;
+		usleep(philo->tab->eat_time * 1000);
 		philo->last_time_eated = get_time();
+		pthread_mutex_unlock(philo->r_fork);
+		pthread_mutex_unlock(philo->l_fork);
 	}
-	pthread_mutex_unlock(philo->r_fork);
-	pthread_mutex_unlock(philo->l_fork);
 }
