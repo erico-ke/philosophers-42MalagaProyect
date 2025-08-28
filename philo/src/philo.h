@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/28 09:58:57 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/28 11:06:24 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,29 @@ typedef struct table	t_table;
 
 typedef struct philo
 {
-    int				id;
-    int				is_eating;
-    long long		last_time_eated;
-    int				is_sleeping;
-    int				is_alive;
-    pthread_mutex_t	*r_fork;
-    pthread_mutex_t	*l_fork;
-    pthread_t		thread;
-    t_table			*tab;
+	int				id;
+	int				is_eating;
+	long long		last_time_eated;
+	int				is_sleeping;
+	int				is_alive;
+	pthread_mutex_t	*r_fork;
+	pthread_mutex_t	*l_fork;
+	pthread_t		thread;
+	t_table			*tab;
 } t_philo;
 
 typedef	struct table
 {
-    int				death_flag;
-    int				philo_amount;
-    long long		death_time;
-    long long		eat_time;
-    long long		sleep_time;
-    int				nbr_eat;
-    long long		starttime;
-    pthread_t		thread;
-    pthread_mutex_t	*writer;
-    t_philo			**philosophers;
+	int				death_flag;
+	int				philo_amount;
+	long long		death_time;
+	long long		eat_time;
+	long long		sleep_time;
+	int				nbr_eat;
+	long long		starttime;
+	pthread_t		thread;
+	pthread_mutex_t	*writer;
+	t_philo			**philosophers;
 } t_table;
 
 /* Error management and memory free */

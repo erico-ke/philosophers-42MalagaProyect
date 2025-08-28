@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/28 10:57:37 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/28 11:05:32 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,53 +75,53 @@ static void	*control(void *arg)
 
 static void	*routine(void *arg)
 {
-    t_philo	*philo;
+	t_philo	*philo;
 
-    philo = (t_philo *)arg;
-    philo->last_time_eated = get_time();
-    while (philo->is_alive != 1)
-    {
-        if (get_time() - philo->last_time_eated >= philo->tab->death_time)
-        {
-            philo->is_alive = 1;
-            philo->tab->death_flag = 1;
-            print_mutex_death_use(philo, "died");
-            return (NULL);
-        }
-        if (philo->is_eating == 0 && philo->is_sleeping == 0)
-        {
-            fork_mutex_use(philo);
-            philo->is_eating = 1;
-            philo->last_time_eated = get_time();
-            philo->is_eating = 0;
-            philo->is_sleeping = 1;
-            print_mutex_use(philo, "is sleeping");
-            usleep(philo->tab->sleep_time * 1000);
-            philo->is_sleeping = 0;
-            print_mutex_use(philo, "is thinking");
-        }
-    }
-    return (NULL);
+	philo = (t_philo *)arg;
+	philo->last_time_eated = get_time();
+	while (philo->is_alive != 1)
+	{
+		if (get_time() - philo->last_time_eated >= philo->tab->death_time)
+		{
+			philo->is_alive = 1;
+			philo->tab->death_flag = 1;
+			print_mutex_death_use(philo, "died");
+			return (NULL);
+		}
+		if (philo->is_eating == 0 && philo->is_sleeping == 0)
+		{
+			fork_mutex_use(philo);
+			philo->is_eating = 1;
+			philo->last_time_eated = get_time();
+			philo->is_eating = 0;
+			philo->is_sleeping = 1;
+			print_mutex_use(philo, "is sleeping");
+			usleep(philo->tab->sleep_time * 1000);
+			philo->is_sleeping = 0;
+			print_mutex_use(philo, "is thinking");
+		}
+	}
+	return (NULL);
 }
 
 void	philos_pthread_create(t_table *tab, int i)
 {
-    set_start_time(tab);
-    tab->writer = malloc(sizeof(pthread_mutex_t));
-    if (!tab->writer)
-    {
-        prnt_err("Failed to allocate memory for writer mutex");
-        return ;
-    }
-    if (print_mutex_init(tab) == EXIT_FAILURE)
-        return ;
-    pthread_create(&tab->thread, NULL, control, tab);
-    while (++i < tab->philo_amount)
-    {
-        tab->philosophers[i]->tab = tab;
-        pthread_create(&tab->philosophers[i]->thread, NULL, routine, tab->philosophers[i]);
-        usleep(100); // Retraso para evitar colisiones iniciales
-    }
+	set_start_time(tab);
+	tab->writer = malloc(sizeof(pthread_mutex_t));
+	if (!tab->writer)
+	{
+		prnt_err("Failed to allocate memory for writer mutex");
+		return ;
+	}
+	if (print_mutex_init(tab) == EXIT_FAILURE)
+		return ;
+	pthread_create(&tab->thread, NULL, control, tab);
+	while (++i < tab->philo_amount)
+	{
+		tab->philosophers[i]->tab = tab;
+		pthread_create(&tab->philosophers[i]->thread, NULL, routine, tab->philosophers[i]);
+		usleep(100); // Retraso para evitar colisiones iniciales
+	}
 }
 
 void	philos_pthread_join(t_table *tab)
