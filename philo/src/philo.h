@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/07/17 20:08:38 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/28 09:53:55 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct philo
 {
     int				id;
     int				is_eating;
-    int				last_time_eated;
+    long long		last_time_eated;
     int				is_sleeping;
     int				is_alive;
     pthread_mutex_t	*r_fork;

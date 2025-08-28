@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/07/17 20:03:41 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/28 09:55:40 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	*routine(void *arg)
     t_philo	*philo;
 
     philo = (t_philo *)arg;
-    philo->last_time_eated = get_time(); // Inicializar correctamente
+    philo->last_time_eated = get_time();
     while (philo->is_alive != 1)
     {
         if (get_time() - philo->last_time_eated >= philo->tab->death_time)
