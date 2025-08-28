@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:56:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/28 11:01:40 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/28 11:14:58 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ void	fork_mutex_use(t_philo *philo)
 		usleep(philo->tab->eat_time * 1000);
 		philo->last_time_eated = get_time();
 		pthread_mutex_unlock(philo->r_fork);
+		//print_mutex_use(philo, "has left the right fork");
 		pthread_mutex_unlock(philo->l_fork);
+		//print_mutex_use(philo, "has left the left fork");
 	}
 }
 
