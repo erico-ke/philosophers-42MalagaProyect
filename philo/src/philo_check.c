@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/28 09:59:07 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/28 10:57:37 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	philo_routine(t_table *tab)
 {
 	usleep(tab->death_time * 1000);
-	printf("at %lld miliseconds philo 0 died.\n", tab->death_time);
+	printf("%lld 0 died.\n", tab->death_time);
 }
 
 int	philo_pthread_init(t_table *tab, int i)
