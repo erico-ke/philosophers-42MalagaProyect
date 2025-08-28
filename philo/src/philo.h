@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/28 09:53:55 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/28 09:58:57 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ void		set_start_time(t_table *tab);
 int		print_mutex_init(t_table *tab);
 void	print_mutex_use(t_philo *philo, char *msg);
 void	fork_mutex_use(t_philo *philo);
+void	print_mutex_death_use(t_philo *philo, char *msg);
 
 #endif

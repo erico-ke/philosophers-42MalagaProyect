@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mutex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
+/*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:56:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/07/17 20:08:14 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/28 10:00:38 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ int		print_mutex_init(t_table *tab)
 
 void	print_mutex_use(t_philo *philo, char *msg)
 {
-    pthread_mutex_lock(philo->tab->writer);
-    printf("%lld %d %s\n", get_time() - philo->tab->starttime, philo->id, msg);
-    pthread_mutex_unlock(philo->tab->writer);
+	pthread_mutex_lock(philo->tab->writer);
+	if(philo->tab->death_flag != 1)
+		printf("%lld %d %s\n", get_time() - philo->tab->starttime, philo->id, msg);
+	pthread_mutex_unlock(philo->tab->writer);
 }
 
 void	fork_mutex_use(t_philo *philo)
@@ -41,4 +42,11 @@ void	fork_mutex_use(t_philo *philo)
 		pthread_mutex_unlock(philo->r_fork);
 		pthread_mutex_unlock(philo->l_fork);
 	}
+}
+
+void	print_mutex_death_use(t_philo *philo, char *msg)
+{
+    pthread_mutex_lock(philo->tab->writer);
+    printf("%lld %d %s\n", get_time() - philo->tab->starttime, philo->id, msg);
+    pthread_mutex_unlock(philo->tab->writer);
 }
