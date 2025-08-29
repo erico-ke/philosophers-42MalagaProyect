@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/29 15:44:37 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/29 16:06:54 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,21 @@ static void	*control(void *arg)
 	int		i;
 
 	tab = (t_table *)arg;
-	while (1)
+	while (tab->death_flag != 1)
 	{
 		i = -1;
 		while (++i < tab->philo_amount)
 		{
-			if (tab->philosophers[i]->is_alive == 1)
-			{
+			tab->death_flag = 0;
+			if (tab->philosophers[i]->times_eat == tab->nbr_eat)
 				tab->death_flag = 1;
+			else
 				break ;
-			}
 		}
-		if (tab->death_flag == 1)
-			break ;
+		i = -1;
+		while (++i < tab->philo_amount)
+			if (tab->philosophers[i]->is_alive == 1)
+				tab->death_flag = 1;
 	}
 	i = -1;
 	while (++i < tab->philo_amount)
@@ -131,4 +133,3 @@ void	philos_pthread_join(t_table *tab)
 		pthread_join(tab->philosophers[i]->thread, NULL);
 	pthread_join(tab->thread, NULL);
 }
-

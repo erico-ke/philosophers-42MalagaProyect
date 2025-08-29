@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:16:39 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/29 15:37:30 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/29 16:12:35 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	init_table(char **argv, t_table *tab)
 	tab->sleep_time = ft_atol(argv[4]);
 	if (argv[5])
 		tab->nbr_eat = ft_atol(argv[5]);
+	else
+		tab->nbr_eat = -1;
 	tab->death_flag = 0;
 	return (EXIT_SUCCESS);
 }
