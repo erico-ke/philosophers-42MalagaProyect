@@ -1,6 +1,6 @@
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
 RM = rm -rf
 
 SRCS =	$(wildcard $(SRCDIR)/*.c)
