@@ -6,17 +6,11 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/29 16:06:54 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/29 16:26:46 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	philo_routine(t_table *tab)
-{
-	usleep(tab->death_time * 1000);
-	printf("%lld 0 died.\n", tab->death_time);
-}
 
 int	philo_pthread_init(t_table *tab, int i)
 {
@@ -37,7 +31,7 @@ int	philo_pthread_init(t_table *tab, int i)
 		tab->philosophers[i]->is_eating = 0;
 		tab->philosophers[i]->last_time_eated = 0;
 		tab->philosophers[i]->times_eat = 0;
-		tab->philosophers[i]->is_alive = 0;	
+		tab->philosophers[i]->is_alive = 0;
 		if (i == tab->philo_amount - 1)
 			tab->philosophers[i]->r_fork = tab->philosophers[0]->l_fork;
 	}
@@ -119,8 +113,9 @@ void	philos_pthread_create(t_table *tab, int i)
 	while (++i < tab->philo_amount)
 	{
 		tab->philosophers[i]->tab = tab;
-		pthread_create(&tab->philosophers[i]->thread, NULL, routine, tab->philosophers[i]);
-		usleep(100); // Retraso para evitar colisiones iniciales
+		pthread_create(&tab->philosophers[i]->thread, NULL, routine,
+			tab->philosophers[i]);
+		usleep(100);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:16:39 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/29 16:12:35 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/29 16:24:21 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	init_table(char **argv, t_table *tab)
 				return (EXIT_FAILURE);
 		}
 	}
-	tab->philo_amount = ft_atol(argv[1]);//estos atoi en realidad deberian ser algo como atol pq los numeros vienen en milisegundos
+	tab->philo_amount = ft_atol(argv[1]);
 	tab->death_time = ft_atol(argv[2]);
 	tab->eat_time = ft_atol(argv[3]);
 	tab->sleep_time = ft_atol(argv[4]);
@@ -66,7 +66,7 @@ int	main(int argc, char **argv)
 	if (!tab)
 		return (prnt_err("malloc failed"));
 	if (init_table(argv, tab) == EXIT_FAILURE)
-		return (free(tab), prnt_err("invalid argument, they must be positive numbers"));
+		return (free(tab), prnt_err("invalid argument, only positive numbers"));
 	if (check_values(tab, argv) == EXIT_FAILURE)
 		return (free(tab), EXIT_FAILURE);
 	if (tab->philo_amount == 1)
@@ -74,7 +74,7 @@ int	main(int argc, char **argv)
 	else
 	{
 		if (philo_pthread_init(tab, -1) == EXIT_FAILURE)
-			return(t_philo_free(tab, 0), EXIT_FAILURE);
+			return (t_philo_free(tab, 0), EXIT_FAILURE);
 		else
 		{
 			philos_pthread_create(tab, -1);

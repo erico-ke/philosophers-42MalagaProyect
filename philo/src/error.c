@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:35:06 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/29 13:55:52 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/29 16:19:30 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void	free_splt(char **split)
 void	t_philo_free(t_table *tab, int i)
 {
 	if (!tab)
-		return;
-	
+		return ;
 	if (tab->philosophers)
 	{
 		while (i < tab->philo_amount)

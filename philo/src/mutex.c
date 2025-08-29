@@ -6,24 +6,25 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:56:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/29 13:40:36 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/29 16:20:54 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int		print_mutex_init(t_table *tab)
+int	print_mutex_init(t_table *tab)
 {
 	if (pthread_mutex_init(tab->writer, NULL) == -1)
-			return (prnt_err("Mutex init failed"));
+		return (prnt_err("Mutex init failed"));
 	return (EXIT_SUCCESS);
 }
 
 void	print_mutex_use(t_philo *philo, char *msg)
 {
 	pthread_mutex_lock(philo->tab->writer);
-	if(philo->tab->death_flag != 1)
-		printf("%lld %d %s\n", get_time() - philo->tab->starttime, philo->id, msg);
+	if (philo->tab->death_flag != 1)
+		printf("%lld %d %s\n", get_time()
+			- philo->tab->starttime, philo->id, msg);
 	pthread_mutex_unlock(philo->tab->writer);
 }
 
