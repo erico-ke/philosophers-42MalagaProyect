@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:35:06 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/07/01 15:19:43 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/29 13:55:52 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,7 @@ void	t_philo_free(t_table *tab, int i)
 		}
 		free(tab->philosophers);
 	}
+	pthread_mutex_destroy(tab->writer);
+	free(tab->writer);
 	free(tab);
 }

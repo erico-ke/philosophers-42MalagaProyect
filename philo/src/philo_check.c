@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/28 11:05:32 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/29 13:58:46 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,8 @@ static void	*routine(void *arg)
 			philo->is_alive = 1;
 			philo->tab->death_flag = 1;
 			print_mutex_death_use(philo, "died");
-			return (NULL);
 		}
-		if (philo->is_eating == 0 && philo->is_sleeping == 0)
+		else if (philo->is_eating == 0 && philo->is_sleeping == 0)
 		{
 			fork_mutex_use(philo);
 			philo->is_eating = 1;
