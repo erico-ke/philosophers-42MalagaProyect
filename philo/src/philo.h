@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/28 11:06:24 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/29 15:30:55 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct philo
 	int				id;
 	int				is_eating;
 	long long		last_time_eated;
-	int				is_sleeping;
+	int				times_eat;
 	int				is_alive;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;

@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/29 13:58:46 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/08/29 15:44:37 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	philo_pthread_init(t_table *tab, int i)
 		tab->philosophers[i]->id = i;
 		tab->philosophers[i]->is_eating = 0;
 		tab->philosophers[i]->last_time_eated = 0;
-		tab->philosophers[i]->is_sleeping = 0;
+		tab->philosophers[i]->times_eat = 0;
 		tab->philosophers[i]->is_alive = 0;	
 		if (i == tab->philo_amount - 1)
 			tab->philosophers[i]->r_fork = tab->philosophers[0]->l_fork;
@@ -87,16 +87,15 @@ static void	*routine(void *arg)
 			philo->tab->death_flag = 1;
 			print_mutex_death_use(philo, "died");
 		}
-		else if (philo->is_eating == 0 && philo->is_sleeping == 0)
+		else
 		{
 			fork_mutex_use(philo);
-			philo->is_eating = 1;
 			philo->last_time_eated = get_time();
-			philo->is_eating = 0;
-			philo->is_sleeping = 1;
+			philo->times_eat++;
+			if (philo->times_eat == philo->tab->nbr_eat)
+				break ;
 			print_mutex_use(philo, "is sleeping");
 			usleep(philo->tab->sleep_time * 1000);
-			philo->is_sleeping = 0;
 			print_mutex_use(philo, "is thinking");
 		}
 	}
