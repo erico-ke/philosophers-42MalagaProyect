@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:35:06 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/29 16:19:30 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:49:06 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,7 @@ void	t_philo_free(t_table *tab, int i)
 	}
 	pthread_mutex_destroy(tab->writer);
 	free(tab->writer);
+	pthread_mutex_destroy(tab->alive);
+	free(tab->alive);
 	free(tab);
 }

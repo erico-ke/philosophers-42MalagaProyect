@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/29 16:25:39 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:46:48 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct table
 	long long		starttime;
 	pthread_t		thread;
 	pthread_mutex_t	*writer;
+	pthread_mutex_t	*alive;
 	t_philo			**philosophers;
 }	t_table;
 

@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:56:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/09/01 15:11:15 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:48:33 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	print_mutex_init(t_table *tab)
 {
+	if (pthread_mutex_init(tab->writer, NULL) == -1)
+		return (prnt_err("Mutex init failed"));
 	if (pthread_mutex_init(tab->writer, NULL) == -1)
 		return (prnt_err("Mutex init failed"));
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/09/01 14:53:04 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:48:07 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,12 @@ void	philos_pthread_create(t_table *tab, int i)
 	if (!tab->writer)
 	{
 		prnt_err("Failed to allocate memory for writer mutex");
+		return ;
+	}
+	tab->alive = malloc(sizeof(pthread_mutex_t));
+	if (!tab->alive)
+	{
+		prnt_err("Failed to allocate memory for alive mutex");
 		return ;
 	}
 	if (print_mutex_init(tab) == EXIT_FAILURE)
