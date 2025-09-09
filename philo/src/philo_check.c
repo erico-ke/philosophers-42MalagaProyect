@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/09/09 17:48:07 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/09/09 18:24:46 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,16 @@ int	philo_pthread_init(t_table *tab, int i)
 		if (!tab->philosophers[i]->l_fork)
 			return (EXIT_FAILURE);
 		if (pthread_mutex_init(tab->philosophers[i]->l_fork, NULL) == -1)
+			return (EXIT_FAILURE);
+		tab->philosophers[i]->alive = malloc(sizeof(pthread_mutex_t));
+		if (!tab->philosophers[i]->alive)
+			return (EXIT_FAILURE);
+		if (pthread_mutex_init(tab->philosophers[i]->alive, NULL) == -1)
+			return (EXIT_FAILURE);
+		tab->philosophers[i]->t_eated = malloc(sizeof(pthread_mutex_t));
+		if (!tab->philosophers[i]->t_eated)
+			return (EXIT_FAILURE);
+		if (pthread_mutex_init(tab->philosophers[i]->t_eated, NULL) == -1)
 			return (EXIT_FAILURE);
 		tab->philosophers[i]->id = i;
 		tab->philosophers[i]->is_eating = 0;
@@ -47,25 +57,52 @@ static void	*control(void *arg)
 	int		i;
 
 	tab = (t_table *)arg;
+	pthread_mutex_lock(tab->death);
 	while (tab->death_flag != 1)
 	{
+		pthread_mutex_unlock(tab->death);
 		i = -1;
 		while (++i < tab->philo_amount)
 		{
+			pthread_mutex_lock(tab->death);
 			tab->death_flag = 0;
+			pthread_mutex_unlock(tab->death);
+			pthread_mutex_lock(tab->philosophers[i]->t_eated);
 			if (tab->philosophers[i]->times_eat == tab->nbr_eat)
+			{
+				pthread_mutex_unlock(tab->philosophers[i]->t_eated);
+				pthread_mutex_lock(tab->death);
 				tab->death_flag = 1;
+				pthread_mutex_unlock(tab->death);
+			}
 			else
+			{
+				pthread_mutex_unlock(tab->philosophers[i]->t_eated);
 				break ;
+			}
 		}
 		i = -1;
 		while (++i < tab->philo_amount)
+		{
+			pthread_mutex_lock(tab->philosophers[i]->alive);
 			if (tab->philosophers[i]->is_alive == 1)
+			{
+				pthread_mutex_lock(tab->death);
 				tab->death_flag = 1;
+				pthread_mutex_unlock(tab->death);
+			}
+			pthread_mutex_unlock(tab->philosophers[i]->alive);
+		}
+		pthread_mutex_lock(tab->death);
 	}
+	pthread_mutex_unlock(tab->death);
 	i = -1;
 	while (++i < tab->philo_amount)
+	{
+		pthread_mutex_lock(tab->philosophers[i]->alive);
 		tab->philosophers[i]->is_alive = 1;
+		pthread_mutex_unlock(tab->philosophers[i]->alive);
+	}
 	return (NULL);
 }
 
@@ -75,26 +112,39 @@ static void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	philo->last_time_eated = get_time();
+	pthread_mutex_lock(philo->alive);
 	while (philo->is_alive != 1)
 	{
+		pthread_mutex_unlock(philo->alive);
 		if (get_time() - philo->last_time_eated >= philo->tab->death_time)
 		{
+			pthread_mutex_lock(philo->alive);
 			philo->is_alive = 1;
+			pthread_mutex_unlock(philo->alive);
+			pthread_mutex_lock(philo->tab->death);
 			philo->tab->death_flag = 1;
+			pthread_mutex_unlock(philo->tab->death);
 			print_mutex_death_use(philo, "died");
 		}
 		else
 		{
 			fork_mutex_use(philo);
 			philo->last_time_eated = get_time();
+			pthread_mutex_lock(philo->t_eated);
 			philo->times_eat++;
 			if (philo->times_eat == philo->tab->nbr_eat)
+			{
+				pthread_mutex_unlock(philo->t_eated);
 				break ;
+			}
+			pthread_mutex_unlock(philo->t_eated);
 			print_mutex_use(philo, "is sleeping");
 			usleep(philo->tab->sleep_time * 1000);
 			print_mutex_use(philo, "is thinking");
 		}
+		pthread_mutex_lock(philo->alive);
 	}
+	pthread_mutex_unlock(philo->alive);
 	return (NULL);
 }
 
@@ -107,10 +157,10 @@ void	philos_pthread_create(t_table *tab, int i)
 		prnt_err("Failed to allocate memory for writer mutex");
 		return ;
 	}
-	tab->alive = malloc(sizeof(pthread_mutex_t));
-	if (!tab->alive)
+	tab->death = malloc(sizeof(pthread_mutex_t));
+	if (!tab->death)
 	{
-		prnt_err("Failed to allocate memory for alive mutex");
+		prnt_err("Failed to allocate memory for writer mutex");
 		return ;
 	}
 	if (print_mutex_init(tab) == EXIT_FAILURE)

@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/09/09 17:46:48 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/09/09 18:10:33 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct philo
 	int				is_alive;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	*alive;
+	pthread_mutex_t	*t_eated;
 	pthread_t		thread;
 	t_table			*tab;
 }	t_philo;
@@ -45,7 +47,7 @@ typedef struct table
 	long long		starttime;
 	pthread_t		thread;
 	pthread_mutex_t	*writer;
-	pthread_mutex_t	*alive;
+	pthread_mutex_t	*death;
 	t_philo			**philosophers;
 }	t_table;
 

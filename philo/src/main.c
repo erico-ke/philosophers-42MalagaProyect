@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:16:39 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/29 16:24:21 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/09/09 18:13:43 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	main(int argc, char **argv)
 	t_table	*tab;
 
 	if (argc < 5 || argc > 6)
-		return (prnt_err("indvalid number of arguments"));
+		return (prnt_err("invalid number of arguments"));
 	tab = malloc(sizeof(t_table));
 	if (!tab)
 		return (prnt_err("malloc failed"));
