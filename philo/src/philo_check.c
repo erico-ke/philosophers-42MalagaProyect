@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/09/12 03:33:42 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/09/12 03:57:21 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,13 @@ int	philo_pthread_init(t_table *tab, int i)
 			tab->philosophers[i]->r_fork = tab->philosophers[i + 1]->l_fork;
 	return (EXIT_SUCCESS);
 }
+
+/* La death flag deberia solo modificarse desde control, arreglar. sacarla de la 
+rutina de philos no afecta el funcionamiento del programa. se puede prescindir del mutex.
+
+Cuando se separa en partes control deja de funcionar correctamente el programa
+revisar si es culpa de iteradores o de un cambio de logica necesario para particionar
+la funcion. */
 
 static void	*control(void *arg)
 {
@@ -128,9 +135,9 @@ static void	*routine(void *arg)
 			pthread_mutex_lock(philo->alive);
 			philo->is_alive = 1;
 			pthread_mutex_unlock(philo->alive);
-			pthread_mutex_lock(philo->tab->death);
+			/* pthread_mutex_lock(philo->tab->death);
 			philo->tab->death_flag = 1;
-			pthread_mutex_unlock(philo->tab->death);
+			pthread_mutex_unlock(philo->tab->death); */
 			print_mutex_death_use(philo, "died");
 		}
 		else
