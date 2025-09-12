@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/09/12 03:57:21 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/09/12 03:59:11 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ rutina de philos no afecta el funcionamiento del programa. se puede prescindir d
 
 Cuando se separa en partes control deja de funcionar correctamente el programa
 revisar si es culpa de iteradores o de un cambio de logica necesario para particionar
-la funcion. */
+la funcion. 
+
+Posible solucion al problema de la cantidad de lineas por funcion es crear mini
+funciones dedicadas al uso de los mutex, por ejemplo el de death_flag*/
 
 static void	*control(void *arg)
 {
