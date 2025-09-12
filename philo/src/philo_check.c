@@ -3,14 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   philo_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
+/*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/09/09 18:24:46 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/09/12 03:33:42 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	pthread_init_aux(t_table *tab, int i)
+{
+	tab->philosophers[i] = malloc(sizeof(t_philo));
+	if (!tab->philosophers[i])
+		return (EXIT_FAILURE);
+	tab->philosophers[i]->l_fork = malloc(sizeof(pthread_mutex_t));
+	if (!tab->philosophers[i]->l_fork)
+		return (EXIT_FAILURE);
+	if (pthread_mutex_init(tab->philosophers[i]->l_fork, NULL) == -1)
+		return (EXIT_FAILURE);
+	tab->philosophers[i]->alive = malloc(sizeof(pthread_mutex_t));
+	if (!tab->philosophers[i]->alive)
+		return (EXIT_FAILURE);
+	if (pthread_mutex_init(tab->philosophers[i]->alive, NULL) == -1)
+		return (EXIT_FAILURE);
+	tab->philosophers[i]->t_eated = malloc(sizeof(pthread_mutex_t));
+	if (!tab->philosophers[i]->t_eated)
+		return (EXIT_FAILURE);
+	if (pthread_mutex_init(tab->philosophers[i]->t_eated, NULL) == -1)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
 
 int	philo_pthread_init(t_table *tab, int i)
 {
@@ -19,23 +42,7 @@ int	philo_pthread_init(t_table *tab, int i)
 		return (EXIT_FAILURE);
 	while (++i < tab->philo_amount)
 	{
-		tab->philosophers[i] = malloc(sizeof(t_philo));
-		if (!tab->philosophers[i])
-			return (EXIT_FAILURE);
-		tab->philosophers[i]->l_fork = malloc(sizeof(pthread_mutex_t));
-		if (!tab->philosophers[i]->l_fork)
-			return (EXIT_FAILURE);
-		if (pthread_mutex_init(tab->philosophers[i]->l_fork, NULL) == -1)
-			return (EXIT_FAILURE);
-		tab->philosophers[i]->alive = malloc(sizeof(pthread_mutex_t));
-		if (!tab->philosophers[i]->alive)
-			return (EXIT_FAILURE);
-		if (pthread_mutex_init(tab->philosophers[i]->alive, NULL) == -1)
-			return (EXIT_FAILURE);
-		tab->philosophers[i]->t_eated = malloc(sizeof(pthread_mutex_t));
-		if (!tab->philosophers[i]->t_eated)
-			return (EXIT_FAILURE);
-		if (pthread_mutex_init(tab->philosophers[i]->t_eated, NULL) == -1)
+		if (pthread_init_aux(tab, i) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		tab->philosophers[i]->id = i;
 		tab->philosophers[i]->is_eating = 0;
