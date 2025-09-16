@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
+/*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/09/09 18:10:33 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/09/16 12:14:46 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,11 @@ int			print_mutex_init(t_table *tab);
 void		print_mutex_use(t_philo *philo, char *msg);
 void		fork_mutex_use(t_philo *philo);
 void		print_mutex_death_use(t_philo *philo, char *msg);
+
+/* Auxiliar functions */
+int			routine_aux(t_philo *philo);
+void		sec_control_aux(t_table *tab, int i);
+void		control_aux(t_table *tab, int i);
+int			pthread_init_aux(t_table *tab, int i);
 
 #endif
