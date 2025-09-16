@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/09/16 11:57:05 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/09/16 12:02:59 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,24 @@ static void	*control(void *arg)
 	return (NULL);
 }
 
+int	routine_aux(t_philo *philo)
+{
+	fork_mutex_use(philo);
+	philo->last_time_eated = get_time();
+	pthread_mutex_lock(philo->t_eated);
+	philo->times_eat++;
+	if (philo->times_eat == philo->tab->nbr_eat)
+	{
+		pthread_mutex_unlock(philo->t_eated);
+		return (EXIT_FAILURE);
+	}
+	pthread_mutex_unlock(philo->t_eated);
+	print_mutex_use(philo, "is sleeping");
+	usleep(philo->tab->sleep_time * 1000);
+	print_mutex_use(philo, "is thinking");
+	return (EXIT_SUCCESS);
+}
+
 static void	*routine(void *arg)
 {
 	t_philo	*philo;
@@ -143,21 +161,8 @@ static void	*routine(void *arg)
 			print_mutex_death_use(philo, "died");
 		}
 		else
-		{
-			fork_mutex_use(philo);
-			philo->last_time_eated = get_time();
-			pthread_mutex_lock(philo->t_eated);
-			philo->times_eat++;
-			if (philo->times_eat == philo->tab->nbr_eat)
-			{
-				pthread_mutex_unlock(philo->t_eated);
+			if (routine_aux(philo) == EXIT_FAILURE)
 				break ;
-			}
-			pthread_mutex_unlock(philo->t_eated);
-			print_mutex_use(philo, "is sleeping");
-			usleep(philo->tab->sleep_time * 1000);
-			print_mutex_use(philo, "is thinking");
-		}
 		pthread_mutex_lock(philo->alive);
 	}
 	pthread_mutex_unlock(philo->alive);
