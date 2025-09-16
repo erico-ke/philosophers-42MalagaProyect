@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/09/12 03:59:11 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/09/16 11:57:05 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,43 @@ int	philo_pthread_init(t_table *tab, int i)
 	return (EXIT_SUCCESS);
 }
 
-/* La death flag deberia solo modificarse desde control, arreglar. sacarla de la 
-rutina de philos no afecta el funcionamiento del programa. se puede prescindir del mutex.
+void	control_aux(t_table *tab, int i)
+{
+	while (++i < tab->philo_amount)
+	{
+		pthread_mutex_lock(tab->death);
+		tab->death_flag = 0;
+		pthread_mutex_unlock(tab->death);
+		pthread_mutex_lock(tab->philosophers[i]->t_eated);
+		if (tab->philosophers[i]->times_eat == tab->nbr_eat)
+		{
+			pthread_mutex_unlock(tab->philosophers[i]->t_eated);
+			pthread_mutex_lock(tab->death);
+			tab->death_flag = 1;
+			pthread_mutex_unlock(tab->death);
+		}
+		else
+		{
+			pthread_mutex_unlock(tab->philosophers[i]->t_eated);
+			break ;
+		}
+	}
+}
 
-Cuando se separa en partes control deja de funcionar correctamente el programa
-revisar si es culpa de iteradores o de un cambio de logica necesario para particionar
-la funcion. 
-
-Posible solucion al problema de la cantidad de lineas por funcion es crear mini
-funciones dedicadas al uso de los mutex, por ejemplo el de death_flag*/
+void	sec_control_aux(t_table *tab, int i)
+{
+	while (++i < tab->philo_amount)
+	{
+		pthread_mutex_lock(tab->philosophers[i]->alive);
+		if (tab->philosophers[i]->is_alive == 1)
+		{
+			pthread_mutex_lock(tab->death);
+			tab->death_flag = 1;
+			pthread_mutex_unlock(tab->death);
+		}
+		pthread_mutex_unlock(tab->philosophers[i]->alive);
+	}
+}
 
 static void	*control(void *arg)
 {
@@ -79,37 +107,8 @@ static void	*control(void *arg)
 	{
 		pthread_mutex_unlock(tab->death);
 		i = -1;
-		while (++i < tab->philo_amount)
-		{
-			pthread_mutex_lock(tab->death);
-			tab->death_flag = 0;
-			pthread_mutex_unlock(tab->death);
-			pthread_mutex_lock(tab->philosophers[i]->t_eated);
-			if (tab->philosophers[i]->times_eat == tab->nbr_eat)
-			{
-				pthread_mutex_unlock(tab->philosophers[i]->t_eated);
-				pthread_mutex_lock(tab->death);
-				tab->death_flag = 1;
-				pthread_mutex_unlock(tab->death);
-			}
-			else
-			{
-				pthread_mutex_unlock(tab->philosophers[i]->t_eated);
-				break ;
-			}
-		}
-		i = -1;
-		while (++i < tab->philo_amount)
-		{
-			pthread_mutex_lock(tab->philosophers[i]->alive);
-			if (tab->philosophers[i]->is_alive == 1)
-			{
-				pthread_mutex_lock(tab->death);
-				tab->death_flag = 1;
-				pthread_mutex_unlock(tab->death);
-			}
-			pthread_mutex_unlock(tab->philosophers[i]->alive);
-		}
+		control_aux(tab, i);
+		sec_control_aux(tab, i);
 		pthread_mutex_lock(tab->death);
 	}
 	pthread_mutex_unlock(tab->death);
@@ -138,9 +137,9 @@ static void	*routine(void *arg)
 			pthread_mutex_lock(philo->alive);
 			philo->is_alive = 1;
 			pthread_mutex_unlock(philo->alive);
-			/* pthread_mutex_lock(philo->tab->death);
+			pthread_mutex_lock(philo->tab->death);
 			philo->tab->death_flag = 1;
-			pthread_mutex_unlock(philo->tab->death); */
+			pthread_mutex_unlock(philo->tab->death);
 			print_mutex_death_use(philo, "died");
 		}
 		else
