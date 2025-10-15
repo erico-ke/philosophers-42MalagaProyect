@@ -3,7 +3,13 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror # -fsanitize=thread -g #setarch $(uname -m) -R $SHELL
 RM = rm -rf
 
-SRCS =	$(wildcard $(SRCDIR)/*.c)
+SRCS =	./src/main.c \
+		./src/aux.c \
+		./src/error.c \
+		./src/mutex.c \
+		./src/philo_check.c \
+		./src/time_utils.c \
+		./src/utils.c \
 
 OBJS = $(SRCS:$(SRCDIR)%.c=$(OBJDIR)%.o)
 SRCDIR = ./src/
