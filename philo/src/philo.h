@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:17:01 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/09/16 12:14:46 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/10/22 15:09:34 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,9 @@ typedef struct philo
 	int				is_eating;
 	long long		last_time_eated;
 	int				times_eat;
-	int				is_alive;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
-	pthread_mutex_t	*alive;
-	pthread_mutex_t	*t_eated;
+	pthread_mutex_t	*meal_lock;
 	pthread_t		thread;
 	t_table			*tab;
 }	t_philo;
@@ -78,8 +76,8 @@ void		print_mutex_death_use(t_philo *philo, char *msg);
 
 /* Auxiliar functions */
 int			routine_aux(t_philo *philo);
-void		sec_control_aux(t_table *tab, int i);
-void		control_aux(t_table *tab, int i);
+int			check_philosopher_death(t_philo *philo);
+int			check_all_full(t_table *tab);
 int			pthread_init_aux(t_table *tab, int i);
 
 #endif

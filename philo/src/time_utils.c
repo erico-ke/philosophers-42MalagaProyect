@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
+/*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 21:00:00 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/08/29 16:26:51 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/10/22 15:09:34 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	set_start_time(t_table *tab)
 
 void	philo_routine(t_table *tab)
 {
+	printf("0 1 has taken a fork\n");
 	usleep(tab->death_time * 1000);
-	printf("%lld 0 died.\n", tab->death_time);
+	printf("%lld 1 died\n", tab->death_time);
 }

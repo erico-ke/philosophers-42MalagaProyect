@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erico-ke <erico-ke@42malaga.student.com    +#+  +:+       +#+        */
+/*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 15:16:39 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/09/09 18:13:43 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/10/22 15:09:34 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,15 @@ int	init_table(char **argv, t_table *tab)
 	return (EXIT_SUCCESS);
 }
 
+static int	init_and_validate(char **argv, t_table *tab)
+{
+	if (init_table(argv, tab) == EXIT_FAILURE)
+		return (free(tab), prnt_err("invalid argument, only positive numbers"));
+	if (check_values(tab, argv) == EXIT_FAILURE)
+		return (free(tab), EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
 int	main(int argc, char **argv)
 {
 	t_table	*tab;
@@ -65,22 +74,19 @@ int	main(int argc, char **argv)
 	tab = malloc(sizeof(t_table));
 	if (!tab)
 		return (prnt_err("malloc failed"));
-	if (init_table(argv, tab) == EXIT_FAILURE)
-		return (free(tab), prnt_err("invalid argument, only positive numbers"));
-	if (check_values(tab, argv) == EXIT_FAILURE)
-		return (free(tab), EXIT_FAILURE);
+	if (init_and_validate(argv, tab) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	set_start_time(tab);
 	if (tab->philo_amount == 1)
-		philo_routine(tab);
-	else
 	{
-		if (philo_pthread_init(tab, -1) == EXIT_FAILURE)
-			return (t_philo_free(tab, 0), EXIT_FAILURE);
-		else
-		{
-			philos_pthread_create(tab, -1);
-			philos_pthread_join(tab);
-		}
+		philo_routine(tab);
+		free(tab);
+		return (EXIT_SUCCESS);
 	}
+	if (philo_pthread_init(tab, -1) == EXIT_FAILURE)
+		return (t_philo_free(tab, 0), EXIT_FAILURE);
+	philos_pthread_create(tab, -1);
+	philos_pthread_join(tab);
 	t_philo_free(tab, 0);
 	return (EXIT_SUCCESS);
 }
