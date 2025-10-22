@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/10/22 16:17:18 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:33:37 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,7 @@ static void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->tab->philo_amount % 2 == 1)
-	{
-		if (philo->id % 2 == 0)
-			usleep((philo->tab->eat_time * 1000) / 2);
-	}
+		usleep((philo->id - 1) * 20000);
 	else if (philo->id % 2 == 0)
 		usleep(philo->tab->eat_time * 1000);
 	while (!is_dead(philo))
