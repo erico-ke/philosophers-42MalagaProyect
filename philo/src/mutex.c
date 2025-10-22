@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/04 16:56:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/10/22 15:09:34 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:06:42 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ void	fork_mutex_use(t_philo *philo)
 		pthread_mutex_lock(philo->r_fork);
 		print_mutex_use(philo, "has taken a fork");
 	}
+	pthread_mutex_lock(philo->meal_lock);
+	philo->last_time_eated = get_time();
+	pthread_mutex_unlock(philo->meal_lock);
 	print_mutex_use(philo, "is eating");
 	usleep(philo->tab->eat_time * 1000);
 	pthread_mutex_unlock(philo->r_fork);

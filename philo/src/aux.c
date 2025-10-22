@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 12:05:12 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/10/22 15:09:34 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:06:42 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	routine_aux(t_philo *philo)
 
 	fork_mutex_use(philo);
 	pthread_mutex_lock(philo->meal_lock);
-	philo->last_time_eated = get_time();
 	philo->times_eat++;
 	should_stop = (philo->times_eat == philo->tab->nbr_eat);
 	pthread_mutex_unlock(philo->meal_lock);

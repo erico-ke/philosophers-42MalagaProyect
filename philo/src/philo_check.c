@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/10/22 15:11:08 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/10/22 16:06:42 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,8 @@ static void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	pthread_mutex_lock(philo->meal_lock);
-	philo->last_time_eated = get_time();
-	pthread_mutex_unlock(philo->meal_lock);
+	if (philo->id % 2 == 0)
+		usleep(philo->tab->eat_time * 1000);
 	while (!is_dead(philo))
 	{
 		if (routine_aux(philo) == EXIT_FAILURE)
@@ -101,6 +100,7 @@ void	philos_pthread_create(t_table *tab, int i)
 	while (++i < tab->philo_amount)
 	{
 		tab->philosophers[i]->tab = tab;
+		tab->philosophers[i]->last_time_eated = get_time();
 		pthread_create(&tab->philosophers[i]->thread, NULL, routine,
 			tab->philosophers[i]);
 		usleep(100);
