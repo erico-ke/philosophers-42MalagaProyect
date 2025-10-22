@@ -6,7 +6,7 @@
 /*   By: erico-ke <erico-ke@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 14:28:59 by erico-ke          #+#    #+#             */
-/*   Updated: 2025/10/22 15:09:34 by erico-ke         ###   ########.fr       */
+/*   Updated: 2025/10/22 15:11:08 by erico-ke         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,4 @@ void	philos_pthread_create(t_table *tab, int i)
 		usleep(100);
 	}
 	pthread_create(&tab->thread, NULL, control, tab);
-}
-
-void	philos_pthread_join(t_table *tab)
-{
-	int	i;
-
-	i = -1;
-	while (++i < tab->philo_amount)
-		pthread_join(tab->philosophers[i]->thread, NULL);
-	pthread_join(tab->thread, NULL);
 }
